@@ -1,6 +1,7 @@
 package com.tistory.blackjin.birdviewchallenge.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.tistory.blackjin.birdviewchallenge.presenter.model.ProductItem
 
 data class Product(
     @SerializedName("id")
@@ -17,4 +18,11 @@ data class Product(
     val thumbnailImage: String,
     @SerializedName("title")
     val title: String
+)
+
+fun Product.mapToPresentation(imgWidth: Int, imgHeight: Int) = ProductItem(
+    id = id,
+    thumbnailImage = thumbnailImage,
+    imgWidth = imgWidth,
+    imgHeight = imgHeight
 )

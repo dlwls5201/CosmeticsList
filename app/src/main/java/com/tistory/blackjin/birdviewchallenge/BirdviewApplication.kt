@@ -1,6 +1,9 @@
 package com.tistory.blackjin.birdviewchallenge
 
 import android.app.Application
+import com.tistory.blackjin.birdviewchallenge.di.appModule
+import com.tistory.blackjin.birdviewchallenge.di.networkModule
+import com.tistory.blackjin.birdviewchallenge.di.repoModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
 import org.koin.core.context.startKoin
@@ -36,7 +39,7 @@ class BirdviewApplication : Application() {
 
             modules(
                 listOf(
-
+                    appModule, networkModule, repoModule
                 )
             )
         }

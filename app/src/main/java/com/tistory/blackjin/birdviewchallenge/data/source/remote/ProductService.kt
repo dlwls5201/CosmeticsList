@@ -1,8 +1,8 @@
 package com.tistory.blackjin.birdviewchallenge.data.source.remote
 
 import com.tistory.blackjin.birdviewchallenge.data.model.Product
+import com.tistory.blackjin.birdviewchallenge.data.model.Response
 import io.reactivex.Single
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

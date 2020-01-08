@@ -1,6 +1,6 @@
 package com.tistory.blackjin.birdviewchallenge.di
 
-import com.tistory.blackjin.birdviewchallenge.core.Constants
+import com.tistory.blackjin.birdviewchallenge.constant.NetworkService
 import com.tistory.blackjin.birdviewchallenge.data.source.remote.ProductService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,25 +14,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
 
-    single<ProductService> {
+    single {
         get<Retrofit>().create(ProductService::class.java)
     }
 
     single {
         Retrofit.Builder()
-            .baseUrl(Constants.NetworkService.BASE_URL)
+            .baseUrl(NetworkService.BASE_URL)
             .client(get())
             .addCallAdapterFactory(get())
             .addConverterFactory(get())
             .build()
-    }
-
-    single<CallAdapter.Factory> {
-        RxJava2CallAdapterFactory.createAsync()
-    }
-
-    single<Converter.Factory> {
-        GsonConverterFactory.create()
     }
 
     single<OkHttpClient> {
@@ -55,4 +47,11 @@ val networkModule = module {
         }
     }
 
+    single<CallAdapter.Factory> {
+        RxJava2CallAdapterFactory.createAsync()
+    }
+
+    single<Converter.Factory> {
+        GsonConverterFactory.create()
+    }
 }
