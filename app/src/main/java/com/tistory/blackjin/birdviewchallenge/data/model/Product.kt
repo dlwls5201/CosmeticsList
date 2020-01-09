@@ -5,24 +5,23 @@ import com.tistory.blackjin.birdviewchallenge.presenter.model.ProductItem
 
 data class Product(
     @SerializedName("id")
-    val id: Int,
+    val id: Int = -1,
     @SerializedName("price")
-    val price: String,
+    val price: String = "",
     @SerializedName("oily_score")
-    val oilyScore: Int,
+    val oilyScore: Int = 0,
     @SerializedName("dry_score")
-    val dryScore: Int,
+    val dryScore: Int = 0,
     @SerializedName("sensitive_score")
-    val sensitiveScore: Int,
+    val sensitiveScore: Int = 0,
     @SerializedName("thumbnail_image")
-    val thumbnailImage: String,
+    val thumbnailImage: String = "",
     @SerializedName("title")
-    val title: String
+    val title: String = ""
 )
 
-fun Product.mapToPresentation(imgWidth: Int, imgHeight: Int) = ProductItem(
+fun Product.mapToPresentation() = ProductItem(
     id = id,
     thumbnailImage = thumbnailImage,
-    imgWidth = imgWidth,
-    imgHeight = imgHeight
+    title = title
 )

@@ -8,6 +8,7 @@ import com.tistory.blackjin.birdviewchallenge.R
 import com.tistory.blackjin.birdviewchallenge.presenter.adapter.ProductAdapter
 import com.tistory.blackjin.birdviewchallenge.presenter.adapter.itemdcoration.ProductItemDecoration
 import com.tistory.blackjin.birdviewchallenge.data.ProductRepository
+import com.tistory.blackjin.birdviewchallenge.data.error.MyHttpException
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -49,7 +50,11 @@ class MainActivity : AppCompatActivity() {
             .subscribe({
                 productAdapter.replaceAll(it)
             }) {
-                Timber.wtf(it)
+                if(it is MyHttpException) {
+                    Timber.d("code : ${it.code} , message : ${it.message}")
+                } else {
+                    Timber.e(it)
+                }
             }.also {
                 compositeDisposable.add(it)
             }
