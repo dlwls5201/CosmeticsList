@@ -16,14 +16,14 @@ class ProductRepository(
     private val schedulersProvider: SchedulersProvider
 ) {
 
-    fun get(page: Int = 1) =
-        productService.getProducts(SkinType.oily, page)
+    fun get(skinType: String = SkinType.oily, page: Int = 1) =
+        productService.getProducts(skinType, page)
             .flatMap(productMapping)
             .subscribeOn(schedulersProvider.io())
             .observeOn(schedulersProvider.ui())
 
-    fun search(page: Int = 1, search: String) =
-        productService.searchProducts(SkinType.oily, page, search)
+    fun search(skinType: String = SkinType.oily, page: Int = 1, search: String) =
+        productService.searchProducts(skinType, page, search)
             .flatMap(productMapping)
             .subscribeOn(schedulersProvider.io())
             .observeOn(schedulersProvider.ui())

@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
     tools:layout_width="160dp"
     tools:layout_height="200dp">
 
@@ -11,7 +12,9 @@
         android:id="@+id/ivItemProduct"
         android:adjustViewBounds="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:layout_width="160dp"
+        tools:layout_height="160dp"/>
 
     <TextView
         android:id="@+id/tvItemProductTitle"

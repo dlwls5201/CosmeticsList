@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BirdviewChallenge</string>
+    <string name="empty_data">검색 결과가 없습니다.</string>
 </resources>

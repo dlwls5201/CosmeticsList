@@ -20,6 +20,12 @@ class ProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return when (ViewType.getViewType(viewType)) {
             ViewType.PRODUCT -> ProductViewHolder(parent)
             ViewType.LOADING -> LoadingViewHolder(parent)
+        }.apply {
+            if(this is ProductViewHolder) {
+                itemView.setOnClickListener {
+
+                }
+            }
         }
     }
 
@@ -39,6 +45,31 @@ class ProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun addItems(items: List<ProductItem>) {
+        removeBottomLoading()
+        this.items.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun addBottomLoading() {
+        if(itemCount > 0) {
+            this.items.add(
+                ProductItem(viewType = ViewType.LOADING)
+            )
+            notifyItemInserted(itemCount - 1)
+        }
+    }
+
+    fun removeBottomLoading() {
+        if(itemCount > 0) {
+            val loading = this.items[itemCount - 1]
+            if(loading.viewType == ViewType.LOADING) {
+                this.items.remove(loading)
+                notifyItemRemoved(itemCount + 1)
+            }
+        }
+    }
+
     class ProductViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
     ) {
@@ -47,7 +78,7 @@ class ProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val title = itemView.findViewById<TextView>(R.id.tvItemProductTitle)
 
         private val holder = ColorDrawable(
-            ContextCompat.getColor(itemView.context, android.R.color.darker_gray)
+            ContextCompat.getColor(itemView.context, R.color.placeHolder)
         )
 
         fun bind(item: ProductItem) {
