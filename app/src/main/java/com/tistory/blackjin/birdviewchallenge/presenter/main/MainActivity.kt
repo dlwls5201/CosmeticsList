@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.RecyclerView
 import com.tistory.blackjin.birdviewchallenge.R
+import com.tistory.blackjin.birdviewchallenge.constant.SkinType
 import com.tistory.blackjin.birdviewchallenge.data.ProductRepository
 import com.tistory.blackjin.birdviewchallenge.presenter.adapter.ProductAdapter
 import com.tistory.blackjin.birdviewchallenge.presenter.adapter.itemdcoration.ProductItemDecoration
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         initRecyclerView()
         initEditView()
+        initSpinner()
 
         presenter.loadProduct()
     }
@@ -157,4 +161,28 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private fun hideKeyboard() {
         imm.hideSoftInputFromWindow(etMainSearch.windowToken, 0)
     }
+
+    private fun initSpinner() {
+
+        val items = listOf(SkinType.oily, SkinType.dry, SkinType.sensitive)
+        val myAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
+        spMainProduct.adapter = myAdapter
+        spMainProduct.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+
+                val skinType = spMainProduct.getItemAtPosition(position) as String
+                presenter.changeSkinType(skinType)
+                Timber.d("position : $position , skinType : $skinType")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
 }

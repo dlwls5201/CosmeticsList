@@ -118,12 +118,16 @@ class MainPresenter(
         page = 1
         search = ""
 
-        //데이터 로딩 중에 데이터 초기화를 하면 기존 작업은 중단합니다.
+        //데이터 로딩 중에 초기화를 하면 기존 작업은 중단합니다.
         compositeDisposable.clear()
 
         if(isBottomLoading) {
             view.hideBottomProductLoading()
             isBottomLoading = false
         }
+    }
+
+    override fun changeSkinType(skinType: String) {
+        this.skinType = skinType
     }
 }

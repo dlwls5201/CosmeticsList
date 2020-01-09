@@ -35,5 +35,7 @@ interface MainContract {
         fun addProduct()
 
         fun initData()
+
+        fun changeSkinType(skinType: String)
     }
 }
