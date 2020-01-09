@@ -11,8 +11,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.tistory.blackjin.birdviewchallenge.R
 import com.tistory.blackjin.birdviewchallenge.presenter.model.ProductItem
-import timber.log.Timber
-
 
 class ProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -32,10 +30,7 @@ class ProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ProductViewHolder) {
-            Timber.e("onBindViewHolder position : $position , ${items[position]}")
-            holder.bind(items[position])
-        }
+        if (holder is ProductViewHolder) holder.bind(items[position])
     }
 
     fun replaceAll(items: List<ProductItem>) {
@@ -57,18 +52,9 @@ class ProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(item: ProductItem) {
 
-            image.run {
-                val layoutParams = this.layoutParams.apply {
-                    this.width = item.imgWidth
-                    this.height = item.imgWidth
-                }
-                setLayoutParams(layoutParams)
-            }
-
             Glide.with(itemView.context)
                 .load(item.thumbnailImage)
                 .placeholder(holder)
-                .override(item.imgWidth, item.imgHeight)
                 .transition(DrawableTransitionOptions.withCrossFade(300))
                 .into(image)
 
@@ -89,7 +75,6 @@ class ProductAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     companion object {
-
         const val spanCount = 2
     }
 }
